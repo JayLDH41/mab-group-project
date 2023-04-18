@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -76,24 +77,21 @@ public class ShowNutrientsForRecord extends AppCompatActivity {
                 }
 
                 saveMeal();
-                finish();
+                Intent intent1 = new Intent(ShowNutrientsForRecord.this, DisplayNutrients.class);
+                ShowNutrientsForRecord.this.startActivity(intent1);
             }
         });
     }
 
     public void saveMeal() {
-        float calories = nutrientAmounts.get("Energy");
-        float carbs = nutrientAmounts.get("Carbohydrate, by difference");
-        float protein = nutrientAmounts.get("Protein");
-        float vitaminc = nutrientAmounts.get("Vitamin C, total ascorbic acid");
-        float fat = nutrientAmounts.get("Total lipid (fat)");
 
-        if (!nutrientAmounts.containsKey("Energy")) calories = 0;
-        if (!nutrientAmounts.containsKey("Carbohydrate, by difference")) carbs = 0;
-        if (!nutrientAmounts.containsKey("Protein")) protein = 0;
-        if (!nutrientAmounts.containsKey("Vitamin C, total ascorbic acid")) vitaminc = 0;
-        if (!nutrientAmounts.containsKey("Total lipid (fat)")) fat = 0;
+        float calories = 0, carbs = 0, protein = 0, vitaminc = 0, fat = 0;
 
+        if (nutrientAmounts.containsKey("Energy")) calories = nutrientAmounts.get("Energy");
+        if (nutrientAmounts.containsKey("Carbohydrate, by difference")) carbs = nutrientAmounts.get("Carbohydrate, by difference");
+        if (nutrientAmounts.containsKey("Protein"))    protein = nutrientAmounts.get("Protein");
+        if (nutrientAmounts.containsKey("Vitamin C, total ascorbic acid")) vitaminc = nutrientAmounts.get("Vitamin C, total ascorbic acid");
+        if (nutrientAmounts.containsKey("Total lipid (fat)")) fat = nutrientAmounts.get("Total lipid (fat)");
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String timestamp = dateFormat.format(new Date());
